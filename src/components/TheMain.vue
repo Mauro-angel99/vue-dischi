@@ -3,12 +3,9 @@
         <section>
             <div class="container">
                 <div class="songs pt-5">
-                    <div class="song" v-for="card in cards" :key="card.author">
-                        <img :src="card.poster" alt="">
-                        <h4>{{ card.title }}</h4>
-                        <span>{{ card.author }}</span>
-                        <span>{{ card.genre }}</span>
-                        <span>{{ card.year }}</span>
+                    <div class="song" v-for="card in cards" :key="card.poster">
+                        <SongCard :poster="card.poster" :title="card.title" :author="card.author" :genre="card.genre"
+                            :year="card.year" />
                     </div>
                 </div>
             </div>
@@ -17,18 +14,14 @@
 </template>
 
 <script>
-import axios from 'axios'
+import SongCard from './SongCard.vue'
 export default {
     name: 'TheMain',
-    data() {
-        return {
-            cards: []
-        }
+    components: {
+        SongCard,
     },
-    mounted() {
-        axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((res) => {
-            this.cards = res.data.response
-        })
+    props: {
+        cards: Array
     }
 }
 
