@@ -1,7 +1,7 @@
 <template>
   <div>
-    <BaseHeader />
-    <TheMain :cards="this.cards" />
+    <BaseHeader :genres="genres" @change-genre="selectGenre" />
+    <TheMain :cards="filterCards" />
   </div>
 
 </template>
@@ -21,15 +21,39 @@ export default {
   },
   data() {
     return {
-      cards: []
+      cards: [],
+      genres: [],
+      setGenre: ""
     }
   },
   mounted() {
     axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((res) => {
       this.cards = res.data.response
+
+      this.cards.forEach(card => {
+        if (!this.genres.includes(card.genre)) {
+          this.genres.push(card.genre)
+        }
+      });
     })
+  },
+  computed: {
+    filterCards() {
+      return this.cards.filter(card => {
+        if (!this.setGenre) return true
+        if (card.genre === this.setGenre) return true
+        else return false
+      })
+    }
+  },
+  methods: {
+    selectGenre(genre) {
+      this.setGenre = genre
+    }
   }
 }
+
+
 </script>
 
 <style lang="scss">

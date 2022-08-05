@@ -1,8 +1,8 @@
 <template>
     <main>
         <section>
-            <div class="container">
-                <div class="songs pt-5">
+            <div class="container d-flex justify-content-center">
+                <div class="songs">
                     <div class="song" v-for="card in cards" :key="card.poster">
                         <SongCard :poster="card.poster" :title="card.title" :author="card.author" :genre="card.genre"
                             :year="card.year" />
@@ -29,28 +29,30 @@ export default {
 
 <style lang="scss">
 main {
+    height: calc(100vh - 60px);
     background-color: #1E2D3B;
 }
 
 .songs {
+    width: calc(240px * 5);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 .song {
-    width: 18%;
+    width: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     background-color: #2E3A46;
     padding: 20px;
-    margin-bottom: 30px;
+    margin: 20px;
 
     h4 {
         color: white;
         text-transform: uppercase;
+        font-size: 18px;
     }
 
     span {
@@ -59,7 +61,7 @@ main {
 }
 
 img {
-    height: 150px;
+    height: 100px;
     margin-bottom: 20px;
 }
 </style>
